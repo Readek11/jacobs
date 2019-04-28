@@ -80,9 +80,43 @@ for person90 in people90:
             f"""If you are not on the Jacobs intranet the URL is http://connect.jacobs.com and use the Liquid Office link there.\n\n"""
             f"""If you have any technical issue preventing you from taking action on those invoices please contact jidsliquidoffice@jacobs.com.\n\n""" 
             f"""Regards,\n\nRadoslaw Gasior\nJacobs\nAccounting Professional | Accounts Payable\nradoslaw.gasior@jacobs.com""")
+print(message90)
+    # outlook = win32.Dispatch("outlook.application")
+    # mail = outlook.CreateItem(0)
+    # mail.To = "radoslaw.gasior@jacobs.com"
+    # mail.Subject = "ACTION REQUIRED: Outstanding invoices in Liquid Office"
+    # mail.Body = message
+    # mail.Send()
+
+for person16 in people16:
+    invoices16 = [] #to zdecydowanie mozna lepiej przeiterowac
+    for invoice in person16["invoices"]:
+        invoices16.append(invoice +"\n")
 
 
-    print(message90)
+    if len(invoices16) == 1:
+        message16 = (
+            f"""Dear {personRegex.search(str(person16['name'])).group(2).strip()}\n\n"""
+            f"""I am contacting you because you have {len(invoices16)} invoice waiting for your action in Liquid Office.\nThis invoice waits to be approved already for more than 16 days. The oldest invoice in your inbox is listed below.\n\n"""
+            f"""Please login to the Liquid Office system and take the appropriate action to clear this item as soon as possible. If you are not able to do that, or believe that the information below is incorrect, please let us know about that.\nOver 16 days:\n\n"""
+            f"""{''.join(invoices16)}"""
+            f"""\n\nIf you are on the Jacobs intranet the URL is http://liquidoffice.jacobs.com\n"""
+            f"""If you are not on the Jacobs intranet the URL is http://connect.jacobs.com and use the Liquid Office link there.\n\n"""
+            f"""If you have any technical issue preventing you from taking action on this invoice please contact jidsliquidoffice@jacobs.com.\n\n""" 
+            f"""Regards,\n\nRadoslaw Gasior\nJacobs\nAccounting Professional | Accounts Payable\nradoslaw.gasior@jacobs.com""")   
+
+    else:
+        message16 = (
+            f"""Dear {personRegex.search(str(person16['name'])).group(2).strip()}\n\n"""
+            f"""I am contacting you because you have {len(invoices16)} invoices waiting for your action in Liquid Office.\nThose invoices wait to be approved already for more than 16 days. The oldest invoices in your inbox are listed below.\n\n"""
+            f"""Please login to the Liquid Office system and take the appropriate action to clear those items as soon as possible. If you are not able to do that, or believe that the information below is incorrect, please let us know about that.\nOver 16 days:\n\n"""
+            f"""{''.join(invoices16)}"""
+            f"""\n\nIf you are on the Jacobs intranet the URL is http://liquidoffice.jacobs.com\n"""
+            f"""If you are not on the Jacobs intranet the URL is http://connect.jacobs.com and use the Liquid Office link there.\n\n"""
+            f"""If you have any technical issue preventing you from taking action on those invoices please contact jidsliquidoffice@jacobs.com.\n\n""" 
+            f"""Regards,\n\nRadoslaw Gasior\nJacobs\nAccounting Professional | Accounts Payable\nradoslaw.gasior@jacobs.com""")
+    print(message16)
+
     # outlook = win32.Dispatch("outlook.application")
     # mail = outlook.CreateItem(0)
     # mail.To = "radoslaw.gasior@jacobs.com"
