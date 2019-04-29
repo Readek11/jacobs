@@ -28,35 +28,41 @@ invoiceRegex = re.compile(r'''
 (\d+\.\d\d) #invoice amount
 ''', re.VERBOSE)
 
-
-people90 = []
+#people90.append({"name": cell.value, "invoices90": [], "invoices16" = [], "email": []})
+people = []
 for row in ws90.iter_rows(min_row=1, max_col=2):
     for cell in row:
         if personRegex.search(str(cell.value)):
-            people90.append({"name": cell.value, "invoices": [], "email": []})
+            people.append({"name": cell.value, "invoices90": [], "invoices16": [], "email": ""})
         if invoiceRegex.search(str(cell.value)):
-            (people90[-1])["invoices"].append(cell.value)
+            (people[-1])["invoices90"].append(cell.value)
         if mailRegex.search(str(cell.value)):
-            (people90[-1])["email"].append(cell.value)
-people16 = []
+            (people[-1])["email"] = cell.value
+
 for row in ws16.iter_rows(min_row=1, max_col=2):
     for cell in row:
         if personRegex.search(str(cell.value)):
-            people16.append({"name": cell.value, "invoices": [], "email": []})
+            personExist = False
+            for index, person in enumerate(people):
+                if person["name"] == cell.value:
+                    personExist = True
+                    personID = index
+                    break
+            if personExist == False:
+                people.append({"name": cell.value, "invoices90": [], "invoices16": [], "email": ""})
+                personID = len(people) - 1
         if invoiceRegex.search(str(cell.value)):
-            (people16[-1])["invoices"].append(cell.value)
+            people[personID]["invoices16"].append(cell.value)
         if mailRegex.search(str(cell.value)):
-            (people16[-1])["email"].append(cell.value)
+            people[personID]["email"] = cell.value
+
 newLine = "\n"
+print(people)
 
-#jezeli dana osoba ma tylko faktury starsze niz 90 dni wyslij message 90, jezeli ma miedzy 16 a 90 i powyzej 90 wyslij message16_90 jezeli tylko pomiedzy 16 a 90 wyslij message16
-
-for person90 in people90:
+for person90 in people: #po pipulach iterowac
     invoices90 = [] #to zdecydowanie mozna lepiej przeiterowac
-    for invoice in person90["invoices"]:
+    for invoice in person90["invoices90"]:
         invoices90.append(invoice +"\n")
-    #     print(invoice)
-    # print(person["email"][0])    
 
 
     if len(invoices90) == 1:
